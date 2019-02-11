@@ -1,7 +1,7 @@
-# WE Movement Take-home Exercise 
-  
+# WE Movement Take-home Exercise
+
 ## Puppies API
-  
+
 
 The purpose of this exercise is to give us an understanding of your capabilities around API and
 data modelling, and to have a project that we can collaborate on during the on-site portion of
@@ -28,7 +28,7 @@ built for this task. Your API might have the ability to:
  - Fetch a user’s profile
  - Fetch a list of the user’s liked posts
  - Fetch a list of posts the user made
- 
+
 To prove that the API is working, please include some tests to verify critical functionality.
 Please provide in the project README:
 -  Instructions for project setup:
@@ -38,3 +38,13 @@ Please provide in the project README:
 - Any caveats or limitations of the implementation or design of the API
 
 Feel free to email your recruiter if you have any questions
+
+## Requirements
+
+- Python 3.4+
+- Flask 1.0 (pip install flask)
+- Postman: https://www.getpostman.com/downloads/
+-
+
+# Development Tools
+- HTML5 and Static Content via http://www.initializr.com/
