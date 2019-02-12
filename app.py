@@ -6,6 +6,8 @@ from datetime import datetime
 
 from settings import *
 
+#import jwt
+
 #TODO: use BluePrints, don't just house all the routes like below
 
 print(__name__)
@@ -85,8 +87,13 @@ user_data =  [
 #        "user_token": 3
 #}
 
-
-
+#Login routes
+#============================
+@app.route('/login')
+#def get_jwt_token():
+    #Var for expiry date of the token
+    #token = jwt.encode({'exp':}, app.config['SECRET_KEY'], algorithm='HS256')
+    #return token
 
 #Default Routes
 #=============================

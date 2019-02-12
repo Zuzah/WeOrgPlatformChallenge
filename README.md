@@ -53,12 +53,22 @@ Feel free to email your recruiter if you have any questions
 
 # Solutions
 
-i. Run the db_create script to create sqlite database tables:
+i. Run the db_create script to create sqlite database tables, followed by insert scripts:
 ```bash
 python db_create.py
+
+python db_insert.py
 ```
 
-ii. "Create a Post": Done by making a POST request to the API with new content:
+ii. Run the app (create a virtualenv that has Flask and Flask_SQLAlchemy installed)
+```bash
+python app.py
+```
+
+
+iii. Launch Postman app
+
+iii. "Create a Post" by making a POST request to the API with new content:
 - use url: http://localhost:5000/Puppies
 - Using Postman send a request with json data for a new post:
 ```json
@@ -70,8 +80,15 @@ ii. "Create a Post": Done by making a POST request to the API with new content:
 }
 ```
 
+iv. Like a post by running the command:
+```bash
+Puppies.likelike_a_post(The post id)
+```
+
 # TODO:
 
 - Fix date format to be consistant style
 - Order content feed by date
 - Implement PUT method for user + like
+- Create Front-end To make requet calls to API
+- Use JWT or some other authentications

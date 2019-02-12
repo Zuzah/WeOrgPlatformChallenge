@@ -7,8 +7,27 @@ WePuppies API App
 {%  block content %}
     <article>
         <header>
-            <h1>Title</h1>
-            <p>Paragraph</p>
+            <h1>Steps to Test</h1>
+            <ul><b>Get All PuppyPosts</b>
+              <li>goto: http://localhost:5000/puppies/</li>
+            </ul>
+            <ul><b>Get Posts by User: UserID 1, 2, etc...</b>
+              <li><a href="http://localhost:5000/puppies/1">User 1: http://localhost:5000/puppies/1</a></li>
+              <li><a href="http://localhost:5000/puppies/2">User 2: http://localhost:5000/puppies/2</a></li>
+            </ul>
+            <ul><b>Add a Post for a User</b>
+              <li><b>Method1</b>: Via PostMan send raw json message to http://localhost:5000/puppies/</li>
+
+            <pre>
+              {
+                "user_token": 1,
+                "post_id": 5,
+                "img_src": "newPupV4.gif",
+                "message": "Puppy that I found"
+              }
+            </pre>
+            <li><b>Method 2</b>: sqlite (not hookedup to front, jsonified)</li>
+            </ul>
         </header>
 
     </article>

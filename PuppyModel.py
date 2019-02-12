@@ -16,6 +16,17 @@ class Puppy(db.Model):
     img_src = db.Column(db.String(1000), nullable=False)
     message = db.Column(db.String(255), nullable=True)
 
+    #Used to return json version of return results
+    def json(self):
+        return {
+            'post_id': self.post_id,
+            'user_token': self.user_token,
+            'date_created':self.date_created,
+            'likes': self.likes,
+            'img_src':self.img_src,
+            'message':self.message
+        }
+
     def add_puppy_post(_post_id, _user_token, _date_created, _likes, _img_src, _message ):
         new_post = Puppy(post_id=_post_id, user_token=_user_token, date_created=_date_created, likes=_likes, img_src=_img_src, message=_message)
         db.session.add(new_post)
