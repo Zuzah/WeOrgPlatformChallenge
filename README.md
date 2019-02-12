@@ -58,7 +58,7 @@ i. Run the db_create script to create sqlite database tables:
 python db_create.py
 ```
 
-ii. "Create a Post": Done by making an api to handle POST request containing new content:
+ii. "Create a Post": Done by making a POST request to the API with new content:
 - use url: http://localhost:5000/Puppies
 - Using Postman send a request with json data for a new post:
 ```json
@@ -66,7 +66,7 @@ ii. "Create a Post": Done by making an api to handle POST request containing new
     "user_token": 1,
     "post_id": 5,
     "img_src": "newPupV4.gif",
-    "message": "Puppy that I found"
+    "message": "Puppy that I found yesterday"
 }
 ```
 
