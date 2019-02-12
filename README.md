@@ -1,3 +1,4 @@
+
 # WE Movement Take-home Exercise
 
 ## Puppies API
@@ -43,8 +44,34 @@ Feel free to email your recruiter if you have any questions
 
 - Python 3.4+
 - Flask 1.0 (pip install flask)
+- SQLAlchemy (pip install flask_sqlalchemy)
 - Postman: https://www.getpostman.com/downloads/
--
 
 # Development Tools
 - HTML5 and Static Content via http://www.initializr.com/
+- Atom IDE
+
+# Solutions
+
+i. Run the db_create script to create sqlite database tables:
+```bash
+python db_create.py
+```
+
+ii. "Create a Post": Done by making an api to handle POST request containing new content:
+- use url: http://localhost:5000/Puppies
+- Using Postman send a request with json data for a new post:
+```json
+{
+    "user_token": 1,
+    "post_id": 5,
+    "img_src": "newPupV4.gif",
+    "message": "Puppy that I found"
+}
+```
+
+# TODO:
+
+- Fix date format to be consistant style
+- Order content feed by date
+- Implement PUT method for user + like

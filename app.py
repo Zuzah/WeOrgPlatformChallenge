@@ -1,6 +1,14 @@
 from flask import Flask, render_template, url_for
-from flask import jsonify, request
+from flask import jsonify, request, Response
 from datetime import datetime
+#The Flask application object with __main__ entry
+#app = Flask(__name__) #app object  now resides in settings.py
+
+from settings import *
+
+#TODO: use BluePrints, don't just house all the routes like below
+
+print(__name__)
 
 #Test data
 
@@ -9,8 +17,7 @@ puppy_data =  [
     {
         'user_token': 1,
         'post_id': 1,
-        'date_created': '2012-04-23T18:25:43.511Z',
-        'date_edited': '2012-04-23T18:25:43.511Z',
+        'date_created': 'Fri, 8 Feb 2019 20:07:04 GMT',
         'likes': 0,
         'img_src': 'puppy1.png',
         'message': 'Picture of my first ever puppy'
@@ -20,8 +27,7 @@ puppy_data =  [
     {
         'user_token': 1,
         'post_id': 2,
-        'date_created': '2013-04-23T18:25:43.511Z',
-        'date_edited': '2013-04-23T18:25:43.511Z',
+        'date_created': 'Sat, 9 Feb 2019 20:07:04 GMT',
         'likes': 0,
         'img_src': 'puppy2.png',
         'message': 'Picture of my 2nd ever puppy'
@@ -32,8 +38,7 @@ puppy_data =  [
     {
         'user_token': 2,
         'post_id': 1,
-        'date_created': '2012-04-23T18:25:43.511Z',
-        'date_edited': '2012-04-23T18:25:43.511Z',
+        'date_created': 'Sun, 10 Feb 2019 20:07:04 GMT',
         'likes': 5,
         'img_src': 'puppy_cute.jpg',
         'message': 'A picture of a puppy I saw yesterday'
@@ -81,9 +86,7 @@ user_data =  [
 #}
 
 
-#The Flask application object with __main__ entry
-app = Flask(__name__)
-print(__name__)
+
 
 #Default Routes
 #=============================
@@ -97,16 +100,16 @@ def index():
    return render_template('index.html', title="Options", text="Select one of the following options to perform")
    #return render_template('index.html')
 
-#User Routes
+#'Puppies' Content Routes
 #==============================
 
-#GET request for /users
+#GET request for /puppies (will list all posts)
 @app.route('/puppies')
 @app.route('/puppies/')
 def get_users():
     return jsonify({'puppy_data':puppy_data})
 
-#GET request to retrieve Puppy Posts by User: /users/{value}
+#GET request to retrieve Puppy Posts by User: /users/{value} "Fetch a users feed" TODO: ordered by date
 @app.route('/puppies/<int:user_token>')
 def get_user_by_token(user_token):
     #List var to hold any dictionary data containing the user's posts
@@ -124,12 +127,18 @@ def get_user_by_token(user_token):
                 'post_id': post["post_id"],
                 'img_src': post["img_src"],
                 'message': post["message"],
-                'likes': post["likes"]
+                'likes': post["likes"],
+                'date_created': post["date_created"],
             })
     #IF data exists for specified user
     if bool(return_data):
-        #Then return the user data
+        #Then return the user data + http response 201 as json
         return jsonify(return_data)
+
+
+        #TODO: Swap this back before PROD in to return just 201 response
+        #response = Response("",201,mimetype='application/json')
+        #return response
 
     else:
         #Else return no such user data
@@ -161,21 +170,39 @@ def add_puppies_post():
             #if(k=='post_id'):
                 #print(k,v)
 
-    new_post = {
+    #If there is request data to process:
+    if bool(request_data):
 
-        "user_token": request_data["user_token"],
-        "post_id": request_data["post_id"],
-        "img_src": request_data["img_src"],
-        "message": request_data["message"],
-        "date_created": datetime.now(),
-        "date_edited": datetime.now(),
+        new_post = {
 
-    }
+            "user_token": request_data["user_token"],
+            "post_id": request_data["post_id"],
+            "img_src": request_data["img_src"],
+            "message": request_data["message"],
+            "date_created": datetime.now(),
+            "likes": 0
 
-    puppy_data.append(new_post)
+        }
 
-    #Return the entire data
-    return jsonify(puppy_data)
+        #Update or Insert the dictionary
+        puppy_data.insert(0,new_post)
+
+        #Return with http 201 response "able to create"
+        response = Response("",201,mimetype='application/json')
+        return response
+
+        #test of return value that is to be created
+    #return jsonify(puppy_data) #test to ensure data is accepted
+
+    else:
+        #Return a 409 error: unable to create
+        response = Response("",409,mimetype='application/json')
+        return response
+
+#PUT method to LIKE a post (a type of Update)
+app.route('/puppies/<int:user_token>/<int:likes>', methods = ['PUT'])
+def likePuppyPost(user_token, likes):
+    pass
 
 #Route decorator for Error Handling
 @app.errorhandler(404)
